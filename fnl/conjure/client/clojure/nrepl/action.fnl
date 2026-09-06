@@ -589,6 +589,25 @@
                                        :ignore-nil? true})
                                    msgs))))))))))))
 
+(fn M.select-test-runner []
+  (let [test-runner-config-key "conjure#client#clojure#nrepl#test#runner"
+        active-test-runner     (core.get vim.g test-runner-config-key)
+        test-runner-names      (core.keys M.test-runners)
+        choices                test-runner-names
+        prompt                 "Select a test-runner:"
+        format-item-fn         (fn [item]
+                                 (if (= item active-test-runner)
+                                   (str.join [item " (*)"])
+                                   item))
+        on-choice-fn           (fn [choice _idx]
+                                 (when choice
+                                   (tset vim.g test-runner-config-key choice)))]
+    (table.sort choices)
+    (vim.ui.select choices
+                   {:prompt      prompt
+                    :format_item format-item-fn}
+                   on-choice-fn)))
+
 (fn refresh-impl [op]
   (server.with-conn-and-ops-or-warn
     [op]
