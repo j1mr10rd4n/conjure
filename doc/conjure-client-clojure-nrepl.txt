@@ -329,8 +329,10 @@ All configuration can be set as described in |conjure-configuration|.
 
                       *g:conjure#client#clojure#nrepl#test#current_form_names*
 `g:conjure#client#clojure#nrepl#test#current_form_names`
-            List of keywords that are used to decide if the
-            current root form is a test that should be ran.
+            List of symbols that are used to decide if the
+            current root form is a test that should be run.
+            Symbols configured here are concatenated with any
+            configured for the currently active test runner.
             Default: `["deftest"]`
 
                       *g:conjure#client#clojure#nrepl#test#pretty_print_test_failures*
@@ -346,6 +348,7 @@ All configuration can be set as described in |conjure-configuration|.
              * `"clojure"`
              * `"clojurescript" (cljs.test instead of clojure.test)`
              * `"kaocha"`
+             * "lazytest"
             More can be added through contributions where required.
             Default: `"clojure"`
 
